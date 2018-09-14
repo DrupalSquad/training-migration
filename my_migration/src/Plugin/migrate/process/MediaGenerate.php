@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ifaw_migrate\Plugin\migrate\process;
+namespace Drupal\my_migration\Plugin\migrate\process;
 
 use Drupal\media\Entity\Media;
 use Drupal\migrate\MigrateExecutableInterface;
