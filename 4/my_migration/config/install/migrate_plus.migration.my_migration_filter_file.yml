@@ -1,0 +1,36 @@
+id: my_migration_filter_file
+migration_group: my_migration
+migration_tags:
+  - my
+  - file
+label: 'My Files'
+
+source:
+  plugin: my_file
+
+destination:
+  plugin: 'entity:file'
+  source_base_path: http://training-drupal-7.dd:8083/
+  source_path_property: filepath
+  urlencode: true
+  destination_path_property: uri
+
+process:
+  fid: fid
+  filename: filename
+  uri: uri
+  uid:
+    -
+      plugin: migration
+      migration: my_migration_user
+      source: uid
+      no_stub: true
+    -
+      plugin: default_value
+      default_value: 1
+
+migration_dependencies: {}
+
+dependencies:
+  module:
+    - my_migration

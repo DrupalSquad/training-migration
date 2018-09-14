@@ -1,0 +1,10 @@
+name: My Migration
+description: Custom module for migrating content from a Drupal 7 site.
+package: Migrations
+type: module
+core: 8.x
+dependencies:
+   - drupal:migrate
+   - drupal:migrate_drupal
+   - migrate_plus:migrate_plus
+   - migrate_tools:migrate_tools

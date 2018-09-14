@@ -1,0 +1,58 @@
+id: my_migration_node_topics_translation
+label: Nodes Translation
+migration_group: my_migration
+audit: true
+migration_tags:
+  - Drupal 7
+  - Content
+  - my
+  - node
+deriver: Drupal\node\Plugin\migrate\D7NodeDeriver
+source:
+  plugin: d7_node
+  node_type: topics
+  translations: true
+
+process:
+  # If you are using this file to build a custom migration consider removing
+  # the nid and vid fields to allow incremental migrations.
+  # In D7, nodes always have a tnid, but it's zero for untranslated nodes.
+  # We normalize it to equal the nid in that case.
+  # @see \Drupal\node\Plugin\migrate\source\d7\Node::prepareRow().
+  nid:
+    plugin: migration_lookup
+    source: tnid
+    migration: my_migration_node_topics
+  # vid: vid
+  type: type
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "und"
+  title: title
+  body: body
+  # body/value: body/0/value
+  # 'body/format':
+  #    plugin: default_value
+  #    default_value: "basic_html"
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+
+destination:
+  plugin: entity:node
+  translations: true
+migration_dependencies:
+  required:
+    - my_migration_user
+    - my_migration_term
+    - my_migration_node_topics
+  optional:
+    - d7_field_instance
+    - d7_comment_field_instance
